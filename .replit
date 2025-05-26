@@ -8,8 +8,8 @@ packages = ["go"]
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["npm", "run", "build"]
-run = ["npm", "run", "start"]
+build = ["sh", "-c", "npm run build && cp -r dist/* server-go/dist/"]
+run = ["sh", "-c", "cd server-go && go run ."]
 
 [[ports]]
 localPort = 5000
@@ -20,7 +20,7 @@ localPort = 5002
 externalPort = 3000
 
 [workflows]
-runButton = "Project"
+runButton = "Development"
 
 [[workflows.workflow]]
 name = "Project"
@@ -39,3 +39,38 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Start Go Backend"
+author = 43159333
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./start-go-server.sh"
+
+[[workflows.workflow]]
+name = "Build Frontend"
+author = 43159333
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cp -r dist/* server-go/dist/"
+
+[[workflows.workflow]]
+name = "Development"
+author = 43159333
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "./start-go-server.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"

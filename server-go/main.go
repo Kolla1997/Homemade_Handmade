@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -33,7 +34,7 @@ func main() {
 		api.GET("/contact", handlers.GetContactMessages)
 	}
 
-	// Serve static files for SPA (if you have a frontend)
+	// Serve static files for SPA
 	r.Static("/assets", "./dist/assets")
 	r.StaticFile("/", "./dist/index.html")
 	r.NoRoute(func(c *gin.Context) {
@@ -46,11 +47,11 @@ func main() {
 	}
 
 	fmt.Printf("🚀 Server starting on port %s\n", port)
-	fmt.Printf("📱 Menu API: http://localhost:%s/api/menu\n", port)
-	fmt.Printf("🛒 Orders API: http://localhost:%s/api/orders\n", port)
-	fmt.Printf("📧 Contact API: http://localhost:%s/api/contact\n", port)
+	fmt.Printf("📱 Menu API: http://0.0.0.0:%s/api/menu\n", port)
+	fmt.Printf("🛒 Orders API: http://0.0.0.0:%s/api/orders\n", port)
+	fmt.Printf("📧 Contact API: http://0.0.0.0:%s/api/contact\n", port)
 
-	if err := r.Run(":" + port); err != nil {
+	if err := r.Run("0.0.0.0:" + port); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
 }
