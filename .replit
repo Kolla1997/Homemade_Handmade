@@ -24,7 +24,7 @@ localPort = 5002
 externalPort = 3000
 
 [workflows]
-runButton = "Start Go Backend"
+runButton = "Full Development"
 
 [[workflows.workflow]]
 name = "Project"
@@ -78,3 +78,16 @@ args = "./start-go-server.sh"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
+
+[[workflows.workflow]]
+name = "Full Development"
+author = 43159333
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server-go && go run ."
