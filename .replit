@@ -24,7 +24,7 @@ localPort = 5002
 externalPort = 3000
 
 [workflows]
-runButton = "Development"
+runButton = "Start Go Backend"
 
 [[workflows.workflow]]
 name = "Project"
