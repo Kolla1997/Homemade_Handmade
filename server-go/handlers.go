@@ -95,3 +95,105 @@ func (h *Handlers) GetContactMessages(c *gin.Context) {
 	messages := h.storage.GetContactMessages()
 	c.JSON(http.StatusOK, messages)
 }
+package main
+
+import (
+	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+)
+
+type Handlers struct {
+	storage *Storage
+}
+
+func NewHandlers(storage *Storage) *Handlers {
+	return &Handlers{storage: storage}
+}
+
+func (h *Handlers) GetMenuByCategory(c *gin.Context) {
+	category := c.Param("category")
+	
+	if category == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Category is required"})
+		return
+	}
+	
+	items := h.storage.GetMenuByCategory(category)
+	c.JSON(http.StatusOK, items)
+}
+
+func (h *Handlers) CreateOrder(c *gin.Context) {
+	var req CreateOrderRequest
+	
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	order := h.storage.CreateOrder(req)
+	c.JSON(http.StatusCreated, order)
+}
+
+func (h *Handlers) GetOrders(c *gin.Context) {
+	orders := h.storage.GetOrders()
+	c.JSON(http.StatusOK, orders)
+}
+
+func (h *Handlers) GetOrder(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid order ID"})
+		return
+	}
+	
+	order, found := h.storage.GetOrder(id)
+	if !found {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Order not found"})
+		return
+	}
+	
+	c.JSON(http.StatusOK, order)
+}
+
+func (h *Handlers) UpdateOrderStatus(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid order ID"})
+		return
+	}
+	
+	var req UpdateOrderStatusRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	order, found := h.storage.UpdateOrderStatus(id, req.Status)
+	if !found {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Order not found"})
+		return
+	}
+	
+	c.JSON(http.StatusOK, order)
+}
+
+func (h *Handlers) CreateContactMessage(c *gin.Context) {
+	var req CreateContactMessageRequest
+	
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	message := h.storage.CreateContactMessage(req)
+	c.JSON(http.StatusCreated, message)
+}
+
+func (h *Handlers) GetContactMessages(c *gin.Context) {
+	messages := h.storage.GetContactMessages()
+	c.JSON(http.StatusOK, messages)
+}
