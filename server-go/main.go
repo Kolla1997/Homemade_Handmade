@@ -38,10 +38,10 @@ func main() {
 	}
 
 	// Serve static files for SPA
-	r.Static("/assets", "./dist/assets")
-	r.StaticFile("/", "./dist/index.html")
+	r.Static("/assets", "../dist/assets")
+	r.StaticFile("/", "../dist/index.html")
 	r.NoRoute(func(c *gin.Context) {
-		c.File("./dist/index.html")
+		c.File("../dist/index.html")
 	})
 
 	port := os.Getenv("PORT")
