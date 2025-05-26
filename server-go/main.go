@@ -5,16 +5,20 @@ import (
 )
 
 func main() {
+	// Initialize storage and handlers
+	storage := NewStorage()
+	handlers := NewHandlers(storage)
+
 	r := gin.Default()
 
 	// Your existing routes
-	r.GET("/api/menu/:category", GetMenuByCategory)
-	r.POST("/api/orders", CreateOrder)
-	r.GET("/api/orders", GetOrders)
-	r.GET("/api/orders/:id", GetOrder)
-	r.PATCH("/api/orders/:id/status", UpdateOrderStatus)
-	r.POST("/api/contact", CreateContactMessage)
-	r.GET("/api/contact", GetContactMessages)
+	r.GET("/api/menu/:category", handlers.GetMenuByCategory)
+	r.POST("/api/orders", handlers.CreateOrder)
+	r.GET("/api/orders", handlers.GetOrders)
+	r.GET("/api/orders/:id", handlers.GetOrder)
+	r.PATCH("/api/orders/:id/status", handlers.UpdateOrderStatus)
+	r.POST("/api/contact", handlers.CreateContactMessage)
+	r.GET("/api/contact", handlers.GetContactMessages)
 
 	// Add this root handler
 	r.GET("/", func(c *gin.Context) {
