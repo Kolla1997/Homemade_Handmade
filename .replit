@@ -12,6 +12,10 @@ build = ["sh", "-c", "npm run build && cp -r dist/* server-go/dist/"]
 run = ["sh", "-c", "cd server-go && go run ."]
 
 [[ports]]
+localPort = 3001
+externalPort = 3002
+
+[[ports]]
 localPort = 5000
 externalPort = 80
 
