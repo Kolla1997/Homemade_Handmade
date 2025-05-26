@@ -65,3 +65,42 @@ type CreateContactRequest struct {
 	Subject string `json:"subject" binding:"required"`
 	Message string `json:"message" binding:"required"`
 }
+package main
+
+import "time"
+
+type MenuItem struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Price       string `json:"price"`
+	Category    string `json:"category"`
+	Image       string `json:"image"`
+}
+
+type Order struct {
+	ID           int       `json:"id"`
+	CustomerName string    `json:"customerName"`
+	Phone        string    `json:"phone"`
+	Email        string    `json:"email"`
+	Address      string    `json:"address"`
+	Date         string    `json:"date"`
+	Time         string    `json:"time"`
+	Items        string    `json:"items"`
+	Subtotal     string    `json:"subtotal"`
+	Tax          string    `json:"tax"`
+	DeliveryFee  string    `json:"deliveryFee"`
+	Total        string    `json:"total"`
+	Status       string    `json:"status"`
+	CreatedAt    time.Time `json:"createdAt"`
+}
+
+type ContactMessage struct {
+	ID        int       `json:"id"`
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
+	Phone     string    `json:"phone"`
+	Subject   string    `json:"subject"`
+	Message   string    `json:"message"`
+	CreatedAt time.Time `json:"createdAt"`
+}

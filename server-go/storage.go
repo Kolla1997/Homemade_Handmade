@@ -152,3 +152,107 @@ func (s *Storage) GetAllContactMessages() []ContactMessage {
 	}
 	return messages
 }
+package main
+
+import (
+	"sync"
+	"time"
+)
+
+type Storage struct {
+	menuItems       []MenuItem
+	orders          []Order
+	contactMessages []ContactMessage
+	orderCounter    int
+	contactCounter  int
+	mutex           sync.RWMutex
+}
+
+func NewStorage() *Storage {
+	storage := &Storage{
+		menuItems: []MenuItem{
+			{ID: 1, Name: "Butter Chicken", Description: "Creamy tomato-based curry with tender chicken", Price: "$18.99", Category: "main", Image: "/api/placeholder/300/200"},
+			{ID: 2, Name: "Biryani", Description: "Fragrant basmati rice with spices and meat", Price: "$16.99", Category: "main", Image: "/api/placeholder/300/200"},
+			{ID: 3, Name: "Samosa", Description: "Crispy pastry filled with spiced potatoes", Price: "$6.99", Category: "appetizer", Image: "/api/placeholder/300/200"},
+			{ID: 4, Name: "Naan", Description: "Fresh baked Indian bread", Price: "$4.99", Category: "bread", Image: "/api/placeholder/300/200"},
+			{ID: 5, Name: "Gulab Jamun", Description: "Sweet milk dumplings in syrup", Price: "$7.99", Category: "dessert", Image: "/api/placeholder/300/200"},
+		},
+		orders:          []Order{},
+		contactMessages: []ContactMessage{},
+	}
+	return storage
+}
+
+func (s *Storage) GetMenuByCategory(category string) []MenuItem {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	
+	var items []MenuItem
+	for _, item := range s.menuItems {
+		if category == "all" || item.Category == category {
+			items = append(items, item)
+		}
+	}
+	return items
+}
+
+func (s *Storage) CreateOrder(order Order) Order {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	
+	s.orderCounter++
+	order.ID = s.orderCounter
+	order.CreatedAt = time.Now()
+	s.orders = append(s.orders, order)
+	return order
+}
+
+func (s *Storage) GetOrders() []Order {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	
+	return s.orders
+}
+
+func (s *Storage) GetOrder(id int) *Order {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	
+	for _, order := range s.orders {
+		if order.ID == id {
+			return &order
+		}
+	}
+	return nil
+}
+
+func (s *Storage) UpdateOrderStatus(id int, status string) *Order {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	
+	for i, order := range s.orders {
+		if order.ID == id {
+			s.orders[i].Status = status
+			return &s.orders[i]
+		}
+	}
+	return nil
+}
+
+func (s *Storage) CreateContactMessage(message ContactMessage) ContactMessage {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	
+	s.contactCounter++
+	message.ID = s.contactCounter
+	message.CreatedAt = time.Now()
+	s.contactMessages = append(s.contactMessages, message)
+	return message
+}
+
+func (s *Storage) GetContactMessages() []ContactMessage {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	
+	return s.contactMessages
+}
