@@ -14,21 +14,21 @@ type MenuItem struct {
 
 // Order represents a customer order
 type Order struct {
-	ID                   int       `json:"id"`
-	CustomerName         string    `json:"customerName"`
-	CustomerPhone        string    `json:"customerPhone"`
-	CustomerEmail        string    `json:"customerEmail"`
-	CustomerAddress      string    `json:"customerAddress"`
-	DeliveryDate         string    `json:"deliveryDate"`
-	DeliveryTime         string    `json:"deliveryTime"`
-	Items                string    `json:"items"`
-	SpecialInstructions  *string   `json:"specialInstructions,omitempty"`
-	Subtotal             string    `json:"subtotal"`
-	Tax                  string    `json:"tax"`
-	DeliveryFee          string    `json:"deliveryFee"`
-	Total                string    `json:"total"`
-	Status               string    `json:"status"`
-	CreatedAt            time.Time `json:"createdAt"`
+	ID                  int       `json:"id"`
+	CustomerName        string    `json:"customerName"`
+	CustomerPhone       string    `json:"customerPhone"`
+	CustomerEmail       string    `json:"customerEmail"`
+	CustomerAddress     string    `json:"customerAddress"`
+	DeliveryDate        string    `json:"deliveryDate"`
+	DeliveryTime        string    `json:"deliveryTime"`
+	Items               []int     `json:"items"`
+	SpecialInstructions *string   `json:"specialInstructions,omitempty"`
+	Subtotal            string    `json:"subtotal"`
+	Tax                 string    `json:"tax"`
+	DeliveryFee         string    `json:"deliveryFee"`
+	Total               string    `json:"total"`
+	Status              string    `json:"status"`
+	CreatedAt           time.Time `json:"createdAt"`
 }
 
 // ContactMessage represents a contact form submission
@@ -41,7 +41,7 @@ type ContactMessage struct {
 	CreatedAt time.Time `json:"createdAt"`
 }
 
-// CreateOrderRequest represents the request payload for creating an order
+// CreateOrderRequest for creating an order
 type CreateOrderRequest struct {
 	CustomerName        string  `json:"customerName" binding:"required"`
 	CustomerPhone       string  `json:"customerPhone" binding:"required"`
@@ -49,7 +49,7 @@ type CreateOrderRequest struct {
 	CustomerAddress     string  `json:"customerAddress" binding:"required"`
 	DeliveryDate        string  `json:"deliveryDate" binding:"required"`
 	DeliveryTime        string  `json:"deliveryTime" binding:"required"`
-	Items               string  `json:"items" binding:"required"`
+	Items               []int   `json:"items" binding:"required"`
 	SpecialInstructions *string `json:"specialInstructions,omitempty"`
 	Subtotal            string  `json:"subtotal" binding:"required"`
 	Tax                 string  `json:"tax" binding:"required"`
@@ -58,7 +58,7 @@ type CreateOrderRequest struct {
 	Status              string  `json:"status"`
 }
 
-// CreateContactRequest represents the request payload for creating a contact message
+// CreateContactRequest for creating a contact message
 type CreateContactRequest struct {
 	Name    string `json:"name" binding:"required"`
 	Email   string `json:"email" binding:"required,email"`
