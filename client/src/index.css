@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 39 39% 96%; /* #F5F1E8 */
+  --foreground: 24 26% 27%; /* #8B7355 */
+  --muted: 39 39% 96%;
+  --muted-foreground: 24 26% 27%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 26% 27%;
+  --card: 0 0% 100%;
+  --card-foreground: 24 26% 27%;
+  --border: 24 15% 85%;
+  --input: 24 15% 85%;
+  --primary: 25 51% 62%; /* #D4926B */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 39 39% 96%;
+  --secondary-foreground: 24 26% 27%;
+  --accent: 39 39% 96%;
+  --accent-foreground: 24 26% 27%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 24 26% 27%;
+  --radius: 0.5rem;
+  
+  /* Custom vintage colors */
+  --vintage-brown: 24 26% 27%; /* #8B7355 */
+  --vintage-sage: 86 11% 50%; /* #7A8471 */
+  --vintage-orange: 25 51% 62%; /* #D4926B */
+  --vintage-cream: 39 39% 96%; /* #F5F1E8 */
+}
+
+.dark {
+  --background: 24 73% 11%; /* #2C2418 */
+  --foreground: 39 29% 82%; /* #E8DCC6 */
+  --muted: 24 73% 11%;
+  --muted-foreground: 39 29% 82%;
+  --popover: 24 73% 11%;
+  --popover-foreground: 39 29% 82%;
+  --card: 24 73% 11%;
+  --card-foreground: 39 29% 82%;
+  --border: 86 21% 19%;
+  --input: 86 21% 19%;
+  --primary: 25 51% 62%; /* #D4926B */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 86 21% 19%;
+  --secondary-foreground: 39 29% 82%;
+  --accent: 86 21% 19%;
+  --accent-foreground: 39 29% 82%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 39 29% 82%;
+  
+  /* Custom vintage colors for dark mode */
+  --vintage-brown: 39 29% 82%; /* #E8DCC6 */
+  --vintage-sage: 86 21% 19%; /* #3A4B32 */
+  --vintage-orange: 25 51% 62%; /* #D4926B */
+  --vintage-cream: 39 29% 82%; /* #E8DCC6 */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .vintage-brown {
+    color: hsl(var(--vintage-brown));
+  }
+  
+  .vintage-sage {
+    color: hsl(var(--vintage-sage));
+  }
+  
+  .vintage-orange {
+    color: hsl(var(--vintage-orange));
+  }
+  
+  .vintage-cream {
+    color: hsl(var(--vintage-cream));
+  }
+  
+  .bg-vintage-brown {
+    background-color: hsl(var(--vintage-brown));
+  }
+  
+  .bg-vintage-sage {
+    background-color: hsl(var(--vintage-sage));
+  }
+  
+  .bg-vintage-orange {
+    background-color: hsl(var(--vintage-orange));
+  }
+  
+  .bg-vintage-cream {
+    background-color: hsl(var(--vintage-cream));
+  }
+  
+  .border-vintage-brown {
+    border-color: hsl(var(--vintage-brown));
+  }
+  
+  .border-vintage-sage {
+    border-color: hsl(var(--vintage-sage));
+  }
+  
+  .border-vintage-orange {
+    border-color: hsl(var(--vintage-orange));
+  }
+  
+  .border-vintage-cream {
+    border-color: hsl(var(--vintage-cream));
+  }
+}
