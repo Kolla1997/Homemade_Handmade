@@ -13,16 +13,11 @@ run = ["sh", "-c", "cd server-go && go run ."]
 
 [[ports]]
 localPort = 3001
+externalPort = 3001
 
 [[ports]]
 localPort = 5000
-
-[[ports]]
-localPort = 5001
-
-[[ports]]
-localPort = 5002
-externalPort = 3000
+externalPort = 80
 
 [workflows]
 runButton = "Full Development Fixed"
