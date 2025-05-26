@@ -16,6 +16,9 @@ func main() {
 
 	r := gin.Default()
 
+	// Set trusted proxies for security
+	r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
+
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
 	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
