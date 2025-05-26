@@ -47,6 +47,6 @@ func main() {
 	// Static assets route if needed
 	r.Static("/assets", "./assets")
 
-	// Start the server on port 5000
-	r.Run("0.0.0.0:5000")
+	// Start the server on port 3001
+	r.Run("0.0.0.0:3001")
 }
